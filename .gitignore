@@ -1,5 +1,8 @@
 ### node etc ###
 
+# D3 library
+lib/
+
 # Logs
 logs
 *.log
