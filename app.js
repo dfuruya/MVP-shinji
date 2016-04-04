@@ -26,24 +26,22 @@ var circles = svg.selectAll("circle")
 
 var moveDots = function() {
   
-  var weatherData = initData.slice().forEach(function(pos) {
-    return pos + 200 * Math.random();
+  var weatherData = _.map(initData, function(pos) {
+    var loc = (pos + 200) * Math.random();
+    return loc;
   });
-  console.log(weatherData);
 
-  svg.selectAll(".dots")
-    // .data(weatherData)
-    // .enter()
+  circles
+    .data(weatherData)
     .transition()
-    .duration(500)
+    .delay(250)
+    .duration(1000)
     .attr("cx", function(d) {
-      return d + 500 * Math.random();
+      return d;
     })
     .attr("cy", function(d) {
-      return d + 500 * Math.random();
+      return d;
     });
 };
 
-setTimeout(function() {
-  moveDots();
-}, 500);
+moveDots();
