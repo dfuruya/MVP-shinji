@@ -3,6 +3,9 @@
 # D3 library
 lib/
 
+# Sample data
+data/
+
 # Logs
 logs
 *.log
