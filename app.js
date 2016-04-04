@@ -23,13 +23,30 @@ var circles = svg.selectAll("circle")
   .attr("cx", center.x)
   .attr("cy", center.y);
 
+var mapRadial = function(array) {
+  var divisions = 360 / array.length;
+  var arr = [];
+  for (var i = 0; i < array.length; i++) {
+    var angle = divisions * i * Math.PI / 180;
+    var x = Math.cos(angle);
+    var y = Math.sin(angle);
+    arr.push([x, y]);
+  }
+  return arr;
+};
 
 var moveDots = function() {
+
+  var radialMap = mapRadial(initData);
   
-  var weatherData = _.map(initData, function(pos) {
-    var loc = (pos + 200) * Math.random();
+  var weatherData = _.map(radialMap, function(radialPos) {
+    var x = radialPos[0] * (200 * Math.random());
+    var y = radialPos[1] * (200 * Math.random());
+    var loc = [x, y];
+    console.log(loc);
     return loc;
   });
+
 
   circles
     .data(weatherData)
@@ -37,10 +54,10 @@ var moveDots = function() {
     .delay(250)
     .duration(1000)
     .attr("cx", function(d) {
-      return d;
+      return center.x + d[0];
     })
     .attr("cy", function(d) {
-      return d;
+      return center.y + d[1];
     });
 };
 
