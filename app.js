@@ -69,18 +69,51 @@ var moveDots = function(dataArr) {
 };
 
 var data;
-var groupIDs = "524901,703448,2643743";
-console.log(apiKey);
-var weatherURL = "http://api.openweathermap.org/data/2.5/group?id=" + groupIDs + "&units=imperial&appid=" + apiKey;
+var groupCities = [
+  [4032283, "Kingdom of Tonga"], 
+  [5856195, "Honolulu"], 
+  [5554072, "Juneau"], 
+  [4282497, "Anchorage"], 
+  [5391959, "San Francisco"], 
+  [5419384, "Denver"], 
+  [3582383, "Chicago"], 
+  [5128638, "New York"], 
+  [3797895, "Buenos Aires"], 
+  [3421319, "Nuuk"], 
+  [3374333, "Praia"], 
+  [3413829, "Reykjavik"], 
+  [2643743, "London"], 
+  [2968815, "Paris"], 
+  [524901, "Moscow"], 
+  [292968, "Abu Dhabi"], 
+  [1176615, "Islamabad"], 
+  [1269517, "Jaipur"], 
+  [1609350, "Bangkok"], 
+  [1668341, "Taipei"], 
+  [1850147, "Tokyo"], 
+  [2172517, "Canberra"], 
+  [2103350, "Solomon Islands"], 
+  [2193734, "Auckland"]
+];
 
-d3.json(weatherURL, function(err, json) {
-  if (err) {
-    return console.warn(err);
-  } else {
-    data = json.list;
-    console.log(data);
-    // moveDots(data);
-  }
-});
+var groupFunc = function(array) {
+  return _.map(array, function(city) {
+    return city[0];
+  });
+};
 
-// moveDots();
+var groupIds = groupFunc(groupCities).join().toString();
+
+var weatherURL = "http://api.openweathermap.org/data/2.5/group?id=" + groupIds + "&units=imperial&appid=" + apiKey;
+
+console.log(weatherURL);
+// d3.json(weatherURL, function(err, json) {
+//   if (err) {
+//     return console.warn(err);
+//   } else {
+//     data = json.list;
+//     console.log(data);
+//     // moveDots(data);
+//   }
+// });
+
