@@ -6,6 +6,9 @@ lib/
 # Sample data
 data/
 
+# API key
+api-key/
+
 # Logs
 logs
 *.log
