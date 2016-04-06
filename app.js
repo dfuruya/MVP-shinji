@@ -79,7 +79,7 @@ var tempPie = function(data) {
     .innerRadius(inner)
     .outerRadius(outer)
     .padRadius(200)
-    .cornerRadius(2);
+    .cornerRadius(5);
 
   // converts our dataset to an array of pie objects 
   // using the temperature data from our response data
@@ -127,7 +127,12 @@ var tempPie = function(data) {
         .style("fill", function(d){
           return d3.rgb(d3.select(this).style("fill")).brighter();
         });
+      // rotate moused over selection to be at 0 degrees
+      arcs.transition()
+        .duration(500)
+        .attr("transform", "rotate(" + (-1*((((d.startAngle + d.endAngle) * 90) / Math.PI) - 90)) + ")");
     })
+    // on mouse exit, return back to neutral state
     .on("mouseout", function(d) {
       d3.select(".temp")
         .text("")
@@ -149,13 +154,11 @@ var tempPie = function(data) {
       // translating the text to outside of the sections
       return "translate(" + pos[0]*1.4 + ", " + pos[1]*1.4 + ")rotate("
         // rotating the text so they are radially oriented to the section angles
-        + ((((d.startAngle + d.endAngle) * 90) / Math.PI) - 90)  + ")";
+        + ((((d.startAngle + d.endAngle) * 90) / Math.PI) - 90) + ")";
     })
-    .style("font", "Tahoma")
     .text(function(d) {
       return d.data.name;
     });
-
 
 };
 
